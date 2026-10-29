@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10110f">
+  <meta name="description" content="Discover, vote for, and share music with your campus community.">
+  <title>JAMVERSE | Your Campus. Your Sound.</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <a href="#home" class="brand">♫ JAM<span>VERSE</span></a>
+
+    <nav id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#discover">Discover</a>
+      <a href="#arena">Jam Arena</a>
+      <a href="#favorites">Favorites <span id="favoriteCount">0</span></a>
+    </nav>
+
+    <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">☼</button>
+    <button id="menuToggle" class="icon-btn mobile-menu" aria-label="Open navigation">☰</button>
+  </header>
+
+  <main>
+    <section class="hero section-wrap" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">✳ THE CAMPUS IS TUNED IN</span>
+        <h1>Your campus.<br>Your <span>sound.</span></h1>
+        <p>
+          Discover your next obsession. Share your favorite tracks.
+          Let your campus decide what plays next.
+        </p>
+        <a href="#arena" class="primary-btn">Enter Jam Arena ↗</a>
+        <div class="community">♫ Your music community starts here.</div>
+      </div>
+
+      <div class="album">
+        <span class="album-tag">JAMVERSE ORIGINAL</span>
+        <div class="album-symbol">♫</div>
+        <h2>AFTER<br>HOURS</h2>
+        <span class="album-caption">VOL. 001 — FEEL EVERYTHING</span>
+      </div>
+    </section>
+
+    <section class="section-wrap section" id="discover">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">FIND YOUR FREQUENCY</span>
+          <h2>Discover your <span>vibe.</span></h2>
+          <p class="muted">Find a playlist that matches your mood.</p>
+        </div>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search songs, artists, playlists..."
+          aria-label="Search music"
+        >
+      </div>
+
+      <div class="filters" id="genreFilters">
+        <button class="filter active" data-genre="All">All vibes</button>
+        <button class="filter" data-genre="Indie">Indie</button>
+        <button class="filter" data-genre="Electronic">Electronic</button>
+        <button class="filter" data-genre="Chill">Chill</button>
+        <button class="filter" data-genre="Hip-Hop">Hip-Hop</button>
+        <button class="filter" data-genre="Pop">Pop</button>
+        <button class="filter" data-genre="Rock">Rock</button>
+      </div>
+
+      <div class="toolbar">
+        <span id="resultCount" class="muted">0 tracks</span>
+        <label>
+          Sort:
+          <select id="sortSelect">
+            <option value="popular">Most popular</option>
+            <option value="title">Title A–Z</option>
+            <option value="newest">Recently added</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="playlist-grid" id="playlistGrid"></div>
+    </section>
+
+    <section class="section-wrap section" id="arena">
+      <span class="eyebrow">THE COMMUNITY DECIDES</span>
+      <h2>Welcome to the <span>Jam Arena.</span></h2>
+      <p class="muted">
+        Vote for the tracks you want to hear next.
+      </p>
+
+      <div class="arena">
+        <div class="panel">
+          <div class="panel-heading">
+            <h3>🔥 Trending tracks</h3>
+            <button id="addTrackBtn" class="primary-btn">＋ Add a track</button>
+          </div>
+          <div id="queueList"></div>
+        </div>
+
+        <div class="panel vibe-panel">
+          <div class="vibe-icon">♫</div>
+          <span class="eyebrow">THE COLLECTIVE VIBE</span>
+          <h3>One campus.<br>One soundtrack.</h3>
+          <p class="muted">
+            Every vote shapes this local demo playlist.
+          </p>
+          <div class="meter"><span id="energyBar"></span></div>
+          <small id="energyText">ENERGY LEVEL: BUILDING</small>
+          <p class="demo-note">Demo mode · Votes are stored in this browser.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrap section" id="favorites">
+      <span class="eyebrow">YOUR PERSONAL COLLECTION</span>
+      <h2>Your <span>favorites.</span></h2>
+      <p class="muted">The tracks you have saved for later.</p>
+      <div class="playlist-grid" id="favoritesGrid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#home" class="brand">♫ JAM<span>VERSE</span></a>
+    <p>Made for music people, by music people.</p>
+    <small>© <span id="year"></span> JAMVERSE</small>
+  </footer>
+
+  <div class="mini-player" id="miniPlayer">
+    <div class="player-info">
+      <div class="player-art">♫</div>
+      <div>
+        <strong id="nowPlaying">Choose your vibe</strong>
+        <small id="nowArtist">JAMVERSE RADIO</small>
+      </div>
+    </div>
+
+    <div class="player-controls">
+      <button id="prevBtn" aria-label="Previous track">⏮</button>
+      <button id="playBtn" class="play-button" aria-label="Play or pause">▶</button>
+      <button id="nextBtn" aria-label="Next track">⏭</button>
+    </div>
+
+    <div class="player-status">
+      <span id="playerStatus">Demo player</span>
+      <input id="volumeControl" type="range" min="0" max="1" step="0.1"
+             value="0.7" aria-label="Volume">
+    </div>
+  </div>
+
+  <dialog id="trackDialog">
+    <form id="trackForm">
+      <button type="button" id="closeDialog" class="close-btn"
+              aria-label="Close dialog">×</button>
+
+      <span class="eyebrow">ADD TO THE COMMUNITY</span>
+      <h2>Add a <span>track.</span></h2>
+
+      <label for="songTitle">Song title</label>
+      <input id="songTitle" name="title" required maxlength="70"
+             placeholder="Enter song title">
+
+      <label for="songArtist">Artist</label>
+      <input id="songArtist" name="artist" required maxlength="70"
+             placeholder="Enter artist name">
+
+      <label for="songGenre">Genre</label>
+      <select id="songGenre" name="genre">
+        <option>Indie</option>
+        <option>Electronic</option>
+        <option>Chill</option>
+        <option>Hip-Hop</option>
+        <option>Pop</option>
+        <option>Rock</option>
+      </select>
+
+      <button class="primary-btn submit-btn" type="submit">
+        Add to the arena ↗
+      </button>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
